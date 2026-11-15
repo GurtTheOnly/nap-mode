@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 120" width="640" height="120">
+  <rect width="640" height="120" fill="#040905"/>
+  <g font-family="monospace" font-size="11" fill="#b7dcc1">
+    <g id="swatches"></g>
+  </g>
+  <script type="text/ecmascript"><![CDATA[
+    const colors = [
+      "#040905","#7a2a2a","#2d7a4a","#9a5f2f",
+      "#1f5237","#7d3240","#2d7a60","#6aa87a",
+      "#2f4535","#d13b3b","#3fae63","#d16a3a",
+      "#35a068","#d1506a","#3fb890","#d17a72"
+    ];
+    const g = document.getElementById('swatches');
+    const w = 40, h = 50, pad = 6;
+    colors.forEach((c, i) => {
+      const x = (i % 8) * (w + pad);
+      const y = Math.floor(i / 8) * (h + pad + 14);
+      const r = document.createElementNS("http://www.w3.org/2000/svg","rect");
+      r.setAttribute("x", x); r.setAttribute("y", y);
+      r.setAttribute("width", w); r.setAttribute("height", h);
+      r.setAttribute("fill", c);
+      r.setAttribute("stroke", "#2f4535"); r.setAttribute("stroke-width","1");
+      g.appendChild(r);
+      const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+      t.setAttribute("x", x + w/2); t.setAttribute("y", y + h + 11);
+      t.setAttribute("text-anchor","middle");
+      t.setAttribute("fill", c);
+      t.textContent = c;
+      g.appendChild(t);
+    });
+  ]]></script>
+</svg>

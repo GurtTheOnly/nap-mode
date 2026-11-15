@@ -1,0 +1,64 @@
+#!/bin/bash
+# nap-console-style — apply the Nap Mode console look (font + palette) to a VT
+# Usage: sudo nap-console-style [tty]     (default: 2)
+set -o pipefail
+
+tt="${1:-2}"
+tt="${tt#/dev/}"
+tt="${tt#tty}"
+dev="/dev/tty${tt}"
+
+[[ -c $dev ]] || { echo "nap-console-style: $dev is not a virtual terminal" >&2; exit 1; }
+
+if [[ $(id -u) -ne 0 ]]; then
+  echo "nap-console-style: must run as root (setfont/setvtrgb need CAP_SYS_TTY_CONFIG)" >&2
+  echo "try: sudo $0 $tt" >&2
+  exit 1
+fi
+
+self_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+
+palette="${NAP_MODE_VTRGB:-}"
+if [[ -z $palette ]]; then
+  for cand in "$HOME/.config/nap-mode/vtrgb" /etc/nap-mode/vtrgb \
+              /usr/local/share/nap-mode/vtrgb "$self_dir/../share/vtrgb"; do
+    [[ -f $cand ]] && { palette=$cand; break; }
+  done
+fi
+
+font="${NAP_MODE_FONT:-}"
+if [[ -z $font ]]; then
+  for cand in \
+    /usr/share/kbd/consolefonts/Lat2-Terminus16.psfu.gz \
+    /usr/share/consolefonts/Lat2-Terminus16.psf.gz \
+    /usr/share/kbd/consolefonts/Lat15-Terminus16.psfu.gz \
+    /usr/share/consolefonts/Lat15-Terminus16.psf.gz \
+    /usr/share/consolefonts/ter-116n.psf.gz; do
+    [[ -f $cand ]] && { font=$cand; break; }
+  done
+fi
+
+if [[ -n $font && -f $font ]] && command -v setfont >/dev/null 2>&1; then
+  tmpf=$(mktemp) || tmpf=""
+  if [[ -n $tmpf ]]; then
+    if [[ $font == *.gz ]]; then
+      zcat -- "$font" >"$tmpf" 2>/dev/null || cat -- "$font" >"$tmpf"
+    else
+      cat -- "$font" >"$tmpf"
+    fi
+    setfont -C "$dev" "$tmpf" 2>/dev/null \
+      || echo "nap-console-style: warning: setfont failed" >&2
+    rm -f -- "$tmpf"
+  fi
+else
+  echo "nap-console-style: no console font found (optional; install terminus-font)" >&2
+fi
+
+if [[ -n $palette && -f $palette ]] && command -v setvtrgb >/dev/null 2>&1; then
+  setvtrgb -C "$dev" "$palette" 2>/dev/null \
+    || echo "nap-console-style: warning: setvtrgb failed (bad palette?)" >&2
+else
+  echo "nap-console-style: no palette file found (expected 16 lines of #RRGGBB)" >&2
+fi
+
+exit 0

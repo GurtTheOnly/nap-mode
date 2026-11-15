@@ -1,0 +1,227 @@
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "defs": {
+    "napBlack": "#040905",
+    "napPanel": "#2f4535",
+    "napElement": "#1f5237",
+    "napBorder": "#2d7a4a",
+    "napMuted": "#6aa87a",
+    "napText": "#b7dcc1",
+    "napWhite": "#cfe8d6",
+    "napSnow": "#eaf4ec",
+    "rose": "#7a2a2a",
+    "brightRose": "#d13b3b",
+    "paleRose": "#d1506a",
+    "sage": "#2d7a4a",
+    "brightSage": "#3fae63",
+    "paleSage": "#c9ffd9",
+    "gold": "#d16a3a",
+    "brightGold": "#d16a3a",
+    "violet": "#7d3240",
+    "brightViolet": "#d1506a",
+    "cyan": "#2d7a60",
+    "brightCyan": "#3fb890"
+  },
+  "theme": {
+    "primary": {
+      "dark": "brightSage",
+      "light": "cyan"
+    },
+    "secondary": {
+      "dark": "brightViolet",
+      "light": "violet"
+    },
+    "accent": {
+      "dark": "brightCyan",
+      "light": "cyan"
+    },
+    "error": {
+      "dark": "brightRose",
+      "light": "rose"
+    },
+    "warning": {
+      "dark": "brightGold",
+      "light": "gold"
+    },
+    "success": {
+      "dark": "brightSage",
+      "light": "sage"
+    },
+    "info": {
+      "dark": "brightCyan",
+      "light": "cyan"
+    },
+    "text": {
+      "dark": "napText",
+      "light": "napElement"
+    },
+    "textMuted": {
+      "dark": "napMuted",
+      "light": "#3f5a4e"
+    },
+    "background": {
+      "dark": "napBlack",
+      "light": "napSnow"
+    },
+    "backgroundPanel": {
+      "dark": "napPanel",
+      "light": "#dbe7dd"
+    },
+    "backgroundElement": {
+      "dark": "napElement",
+      "light": "#c9e6cd"
+    },
+    "border": {
+      "dark": "napBorder",
+      "light": "#8fb09c"
+    },
+    "borderActive": {
+      "dark": "brightSage",
+      "light": "cyan"
+    },
+    "borderSubtle": {
+      "dark": "#1a2c24",
+      "light": "#cad9d0"
+    },
+    "diffAdded": {
+      "dark": "brightSage",
+      "light": "sage"
+    },
+    "diffRemoved": {
+      "dark": "brightRose",
+      "light": "rose"
+    },
+    "diffContext": {
+      "dark": "napMuted",
+      "light": "#3f5a4e"
+    },
+    "diffHunkHeader": {
+      "dark": "cyan",
+      "light": "brightSage"
+    },
+    "diffHighlightAdded": {
+      "dark": "paleSage",
+      "light": "#4a9c6a"
+    },
+    "diffHighlightRemoved": {
+      "dark": "paleRose",
+      "light": "#b8505f"
+    },
+    "diffAddedBg": {
+      "dark": "#0f2620",
+      "light": "#e6f6ec"
+    },
+    "diffRemovedBg": {
+      "dark": "#2a1520",
+      "light": "#fbe8eb"
+    },
+    "diffContextBg": {
+      "dark": "napPanel",
+      "light": "#f4f7fd"
+    },
+    "diffLineNumber": {
+      "dark": "napMuted",
+      "light": "#7f9cc4"
+    },
+    "diffAddedLineNumberBg": {
+      "dark": "#0b1d18",
+      "light": "#d8efdf"
+    },
+    "diffRemovedLineNumberBg": {
+      "dark": "#1f1018",
+      "light": "#f5d6da"
+    },
+    "markdownText": {
+      "dark": "napText",
+      "light": "napElement"
+    },
+    "markdownHeading": {
+      "dark": "brightSage",
+      "light": "cyan"
+    },
+    "markdownLink": {
+      "dark": "brightCyan",
+      "light": "cyan"
+    },
+    "markdownLinkText": {
+      "dark": "napMuted",
+      "light": "#5b7ba8"
+    },
+    "markdownCode": {
+      "dark": "brightSage",
+      "light": "sage"
+    },
+    "markdownBlockQuote": {
+      "dark": "napMuted",
+      "light": "#5b7ba8"
+    },
+    "markdownEmph": {
+      "dark": "brightGold",
+      "light": "gold"
+    },
+    "markdownStrong": {
+      "dark": "brightSage",
+      "light": "cyan"
+    },
+    "markdownHorizontalRule": {
+      "dark": "napBorder",
+      "light": "#cad9d0"
+    },
+    "markdownListItem": {
+      "dark": "cyan",
+      "light": "brightSage"
+    },
+    "markdownListEnumeration": {
+      "dark": "brightCyan",
+      "light": "cyan"
+    },
+    "markdownImage": {
+      "dark": "brightSage",
+      "light": "cyan"
+    },
+    "markdownImageText": {
+      "dark": "napMuted",
+      "light": "#5b7ba8"
+    },
+    "markdownCodeBlock": {
+      "dark": "napPanel",
+      "light": "#f4f7fd"
+    },
+    "syntaxComment": {
+      "dark": "napMuted",
+      "light": "#5b7ba8"
+    },
+    "syntaxKeyword": {
+      "dark": "brightViolet",
+      "light": "violet"
+    },
+    "syntaxFunction": {
+      "dark": "cyan",
+      "light": "brightSage"
+    },
+    "syntaxVariable": {
+      "dark": "napText",
+      "light": "napElement"
+    },
+    "syntaxString": {
+      "dark": "brightSage",
+      "light": "sage"
+    },
+    "syntaxNumber": {
+      "dark": "brightGold",
+      "light": "gold"
+    },
+    "syntaxType": {
+      "dark": "brightCyan",
+      "light": "cyan"
+    },
+    "syntaxOperator": {
+      "dark": "brightRose",
+      "light": "rose"
+    },
+    "syntaxPunctuation": {
+      "dark": "#b8c9c0",
+      "light": "#4a6356"
+    }
+  }
+}

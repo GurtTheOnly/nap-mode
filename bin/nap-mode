@@ -1,0 +1,72 @@
+#!/bin/bash
+# nap-mode — user CLI for the Nap Mode console (font + green/red palette)
+set -o pipefail
+
+HELP="Usage:
+  nap-mode apply [tty]   Apply font + palette to a VT (default 2; uses sudo)
+  nap-mode colors        Print the 16-color palette as swatches
+  nap-mode status        Show detected VT, palette, font, helper
+  nap-mode help          Show this help"
+
+find_palette() {
+  local c
+  for c in "${NAP_MODE_VTRGB:-}" "$HOME/.config/nap-mode/vtrgb" \
+           /etc/nap-mode/vtrgb /usr/local/share/nap-mode/vtrgb; do
+    [[ -n $c && -f $c ]] && { printf '%s' "$c"; return 0; }
+  done
+  return 1
+}
+
+find_font() {
+  local c
+  for c in "${NAP_MODE_FONT:-}" \
+    /usr/share/kbd/consolefonts/Lat2-Terminus16.psfu.gz \
+    /usr/share/consolefonts/Lat2-Terminus16.psf.gz \
+    /usr/share/kbd/consolefonts/Lat15-Terminus16.psfu.gz \
+    /usr/share/consolefonts/Lat15-Terminus16.psf.gz \
+    /usr/share/consolefonts/ter-116n.psf.gz; do
+    [[ -n $c && -f $c ]] && { printf '%s' "$c"; return 0; }
+  done
+  return 1
+}
+
+case "${1:-help}" in
+  apply)
+    exec sudo /usr/local/bin/nap-console-style "${2:-2}"
+    ;;
+  colors)
+    palette=$(find_palette) || {
+      echo "no vtrgb palette found — install first: sudo ./install.sh" >&2
+      exit 1
+    }
+    while IFS= read -r c; do
+      [[ $c == \#?????? ]] || continue
+      r=$((16#${c:1:2})); g=$((16#${c:3:2})); b=$((16#${c:5:2}))
+      printf '\033[48;2;%d;%d;%dm      \033[0m  %s\n' "$r" "$g" "$b" "$c"
+    done < "$palette"
+    echo "palette: $palette"
+    ;;
+  status)
+    active=$(cat /sys/class/tty/tty0/active 2>/dev/null || echo "?")
+    echo "active tty:  $active"
+    if [[ -c /dev/tty2 ]]; then echo "nap vt:      /dev/tty2 (present)"
+    else echo "nap vt:      /dev/tty2 (missing — enable getty@tty2.service)"; fi
+    if p=$(find_palette); then echo "palette:     $p"
+    else echo "palette:     not found"; fi
+    if f=$(find_font); then echo "font:        $f"
+    else echo "font:        not found (terminus-font recommended)"; fi
+    if [[ -x /usr/local/bin/nap-console-style ]]; then
+      echo "helper:      /usr/local/bin/nap-console-style (ok)"
+    else
+      echo "helper:      /usr/local/bin/nap-console-style (not installed)"
+    fi
+    ;;
+  help|-h|--help)
+    printf '%s\n' "$HELP"
+    ;;
+  *)
+    echo "unknown command: $1" >&2
+    printf '%s\n' "$HELP" >&2
+    exit 1
+    ;;
+esac
